@@ -59,7 +59,7 @@ void setup() {
   // now support SET_ENC_WITH_MITM and SET_ENC_NO_MITM
   api.ble.uart.setPermission(RAK_SET_ENC_WITH_MITM);
 
-  char ble_name[] = "3615_My_RAK"; // You have to be French to understand this joke
+  char ble_name[] = "Ikea_Wind_Of_Things"; // You have to be French to understand this joke
   Serial.print("Setting Broadcast Name to: ");
   Serial.println(ble_name);
   api.ble.settings.broadcastName.set(ble_name, strlen(ble_name));
