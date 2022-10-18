@@ -45,6 +45,7 @@ void setup() {
   Serial.printf("Set P2P mode code rate %s\r\n", api.lorawan.pcr.set(myCR) ? "Success" : "Fail");
   Serial.printf("Set P2P mode preamble length %s\r\n", api.lorawan.ppl.set(8) ? "Success" : "Fail");
   Serial.printf("Set P2P mode tx power %s\r\n", api.lorawan.ptp.set(myTX) ? "Success" : "Fail");
+  api.ble.uart.start();
 }
 
 void loop() {

@@ -86,6 +86,9 @@ void sendData() {
   sprintf(payload, "{\"UUID\": \"%08X\",\"cmd\":\"PM2.5\",\"PM25\":%d}", lastCount++, state.avgPM25);
   Serial.printf("P2P send %s: %s\r\n", payload, api.lorawan.psend(strlen(payload), (uint8_t*)payload) ? "Success" : "Fail");
   startTime = millis();
+#ifdef __RAKBLE_H__
+  api.ble.uart.write((uint8_t*)payload, strlen(payload));
+#endif
   delay(500);
   digitalWrite(WB_LED2, 0);
 }
