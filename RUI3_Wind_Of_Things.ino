@@ -12,7 +12,7 @@ void setup() {
   delay(200);
   digitalWrite(WB_LED1, 0);
 
-  Serial.begin(115200);
+  Serial.begin(115200, RAK_CUSTOM_MODE);
   time_t t0 = millis();
   while (!Serial) {
     if ((millis() - t0) < 5000) {
@@ -45,7 +45,27 @@ void setup() {
   Serial.printf("Set P2P mode code rate %s\r\n", api.lorawan.pcr.set(myCR) ? "Success" : "Fail");
   Serial.printf("Set P2P mode preamble length %s\r\n", api.lorawan.ppl.set(8) ? "Success" : "Fail");
   Serial.printf("Set P2P mode tx power %s\r\n", api.lorawan.ptp.set(myTX) ? "Success" : "Fail");
+#ifdef __RAKBLE_H__
+  Serial6.begin(115200, RAK_CUSTOM_MODE);
+  // If you want to read and write data through BLE API operations,
+  // you need to set BLE Serial (Serial6) to Custom Mode
+
+  uint8_t pairing_pin[] = "004631";
+  Serial.print("Setting pairing PIN to: ");
+  Serial.println((char *)pairing_pin);
+  api.ble.uart.setPIN(pairing_pin, 6); //pairing_pin = 6-digit (digit 0..9 only)
+  // Set Permission to access BLE Uart is to require man-in-the-middle protection
+  // This will cause apps to perform pairing with static PIN we set above
+  // now support SET_ENC_WITH_MITM and SET_ENC_NO_MITM
+  api.ble.uart.setPermission(RAK_SET_ENC_WITH_MITM);
+
+  char ble_name[] = "3615_My_RAK"; // You have to be French to understand this joke
+  Serial.print("Setting Broadcast Name to: ");
+  Serial.println(ble_name);
+  api.ble.settings.broadcastName.set(ble_name, strlen(ble_name));
   api.ble.uart.start();
+  api.ble.advertise.start(0);
+#endif
 }
 
 void loop() {
