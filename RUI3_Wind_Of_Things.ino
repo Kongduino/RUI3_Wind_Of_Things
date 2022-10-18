@@ -34,10 +34,10 @@ void setup() {
   startTime = millis();
   Serial.println("P2P Start");
   Serial.printf("Hardware ID: %s\r\n", api.system.chipId.get().c_str());
-  Serial.printf("Model ID: %s\r\n", api.system.modelId.get().c_str());
+  Serial.printf("Model ID: %s\r\n", api.system.hwModel.get().c_str());
   Serial.printf("RUI API Version: %s\r\n", api.system.apiVersion.get().c_str());
-  Serial.printf("Firmware Version: %s\r\n", api.system.firmwareVersion.get().c_str());
-  Serial.printf("AT Command Version: %s\r\n", api.system.cliVersion.get().c_str());
+  Serial.printf("Firmware Version: %s\r\n", api.system.firmwareVer.get().c_str());
+  Serial.printf("AT Command Version: %s\r\n", api.system.cliVer.get().c_str());
   Serial.printf("Set Node device work mode %s\r\n", api.lorawan.nwm.set(0) ? "Success" : "Fail");
   Serial.printf("Set P2P mode frequency %s\r\n", api.lorawan.pfreq.set(myFreq) ? "Success" : "Fail");
   Serial.printf("Set P2P mode spreading factor %s\r\n", api.lorawan.psf.set(mySF) ? "Success" : "Fail");
