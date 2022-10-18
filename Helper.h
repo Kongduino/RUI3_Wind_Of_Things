@@ -83,7 +83,7 @@ void sendData() {
     state.avgPM25, lastCount
   );
   char payload[64];
-  sprintf(payload, "{\"UUID\": \"%08X\",\"cmd\":\"PM2.5\",\"PM25\":%d}", lastCount++, state.avgPM25);
+  sprintf(payload, "{\"from\":\"WindOfThings\", \"UUID\": \"%08X\",\"cmd\":\"msg\",\"msg\":\"PM2.5: %d\"}", lastCount++, state.avgPM25);
   Serial.printf("P2P send %s: %s\r\n", payload, api.lorawan.psend(strlen(payload), (uint8_t*)payload) ? "Success" : "Fail");
   startTime = millis();
 #ifdef __RAKBLE_H__
